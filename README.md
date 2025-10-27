@@ -71,7 +71,7 @@ npm run start:dev
 ### 4️⃣ Rota Swagger
 `http://localhost:3000/api-docs`
 
-### 📦 Endpoint Upload de Arquico
+### 📦 Endpoint Upload de Arquivo
 `POST /orders/process-file`
 
 Descrição:
@@ -89,10 +89,43 @@ Formato do request:
 **Exemplo via** ```curl```:
 
 ```bash
-curl -X POST http://localhost:3000/orders/process-file \
+curl -X POST http://localhost:3000/v1/orders/process-file \
   -F "file=@./samples/orders.txt"
 ```
 
+### 📦 Endpoint Listagem de Pedidos
+
+`GET /orders`
+
+Descrição:
+Retorna a lista de pedidos existentes, podendo ser filtrada por ID do pedido ou intervalo de datas.
+
+- Formato do request:
+
+- **Método:** GET
+
+- **Tipo:** Query Params
+
+**Parâmetros opcionais:**
+
+| Campo       | Tipo   | Descrição                                | Formato    | Obrigatório |
+| ----------- | ------ | ---------------------------------------- | ---------- | ----------- |
+| `orderId`   | string | Id do pedido                             | —          | ❌          |
+| `dateStart` | string | Data inicial da busca                    | YYYY-MM-DD | ❌          |
+| `dateEnd`   | string | Data final da busca (requer `dateStart`) | YYYY-MM-DD | ❌          |
+
+Exemplo via curl:
+
+# Buscar todos os pedidos
+```bash
+curl -X GET "http://localhost:3000/v1/orders"
+
+# Buscar por ID do pedido
+curl -X GET "http://localhost:3000/v1/orders?orderId=12345"
+
+# Buscar por intervalo de datas
+curl -X GET "http://localhost:3000/v1/orders?dateStart=2025-10-01&dateEnd=2025-10-27"
+```
 
 ## 🧩 Componentes principais
 | Camada             | Responsável                   | Arquivo                                                 |
